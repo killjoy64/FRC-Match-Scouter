@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>FRC Match Scouter</ion-title>
+    <ion-toolbar>
+      <ion-segment [(ngModel)]="mode" color="danger">
+        <ion-segment-button value="scouting">
+          Scouting
+        </ion-segment-button>
+        <ion-segment-button value="exporting">
+          Exporting
+        </ion-segment-button>
+      </ion-segment>
+    </ion-toolbar>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div [ngSwitch]="mode">
+    <div *ngSwitchCase="'scouting'">
+      <h1>Scouting form!</h1>
+    </div>
+
+    <div *ngSwitchCase="'exporting'">
+      <h1>Exporting form!</h1>
+    </div>
+  </div>
+</ion-content>
