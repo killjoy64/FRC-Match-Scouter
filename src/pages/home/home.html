@@ -17,11 +17,142 @@
 <ion-content padding>
   <div [ngSwitch]="mode">
     <div *ngSwitchCase="'scouting'">
-      <h1>Scouting form!</h1>
+
+      <div id="scouting-form">
+        <ion-list>
+          <ion-item-divider>
+            <span class="header">General</span>
+          </ion-item-divider>
+          <ion-item>
+            <ion-label>Your Name</ion-label>
+            <ion-input item-right type="text" placeholder="Chad Potinsky" [(ngModel)]="scouter_name"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Team Number</ion-label>
+            <ion-input item-right type="number" placeholder="Team #" [(ngModel)]="team_number"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Match Number</ion-label>
+            <ion-input item-right type="number" placeholder="Match #" [(ngModel)]="match_number"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Alliance</ion-label>
+            <ion-toggle [(ngModel)]="team_alliance"></ion-toggle>
+          </ion-item>
+          <ion-item-divider>
+            <span class="header">Autonomous</span>
+          </ion-item-divider>
+          <ion-item>
+            <ion-label>Baseline</ion-label>
+            <ion-checkbox item-right [(ngModel)]="auto_baseline"></ion-checkbox>
+          </ion-item>
+          <ion-item>
+            <ion-label>Gear</ion-label>
+            <ion-select item-right [(ngModel)]="auto_gear">
+              <ion-option value="none">None</ion-option>
+              <ion-option value="attempted">Attempted</ion-option>
+              <ion-option value="succeeded">Succeeded</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label>High Fuel</ion-label>
+            <ion-input item-right type="number" [(ngModel)]="auto_high_fuel"></ion-input>
+            <button large item-right ion-button icon-only (click)="removeHighFuel()">
+              <ion-icon name="remove"></ion-icon>
+            </button>
+            <button large item-right ion-button icon-only (click)="addHighFuel()">
+              <ion-icon name="add"></ion-icon>
+            </button>
+          </ion-item>
+          <ion-item>
+            <ion-label>Low Fuel</ion-label>
+            <ion-input item-right type="number" [(ngModel)]="auto_low_fuel"></ion-input>
+            <button large item-right ion-button icon-only (click)="removeLowFuel()">
+              <ion-icon name="remove"></ion-icon>
+            </button>
+            <button large item-right ion-button icon-only (click)="addLowFuel()">
+              <ion-icon name="add"></ion-icon>
+            </button>
+          </ion-item>
+          <ion-item-divider>
+            <span class="header">TeleOp</span>
+          </ion-item-divider>
+          <ion-item>
+            <ion-label>Gears</ion-label>
+            <ion-input item-right type="number" [(ngModel)]="tele_gears"></ion-input>
+            <button large item-right ion-button icon-only (click)="removeTeleGear()">
+              <ion-icon name="remove"></ion-icon>
+            </button>
+            <button large item-right ion-button icon-only (click)="addTeleGear()">
+              <ion-icon name="add"></ion-icon>
+            </button>
+          </ion-item>
+          <ion-item>
+            <ion-label>High Fuel</ion-label>
+            <ion-input item-right type="number" [(ngModel)]="tele_high_fuel"></ion-input>
+            <button large item-right ion-button icon-only (click)="removeTeleHighFuel()">
+              <ion-icon name="remove"></ion-icon>
+            </button>
+            <button large item-right ion-button icon-only (click)="addTeleHighFuel()">
+              <ion-icon name="add"></ion-icon>
+            </button>
+          </ion-item>
+          <ion-item>
+            <ion-label>Low Fuel</ion-label>
+            <ion-input item-right type="number" [(ngModel)]="tele_low_fuel"></ion-input>
+            <button large item-right ion-button icon-only (click)="removeTeleLowFuel()">
+              <ion-icon name="remove"></ion-icon>
+            </button>
+            <button large item-right ion-button icon-only (click)="addTeleLowFuel()">
+              <ion-icon name="add"></ion-icon>
+            </button>
+          </ion-item>
+          <ion-item>
+            <ion-label>Climbing</ion-label>
+            <ion-select item-right [(ngModel)]="tele_climb">
+              <ion-option value="none">None</ion-option>
+              <ion-option value="attempted">Attempted</ion-option>
+              <ion-option value="succeeded">Succeeded</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label>Driver Rating</ion-label>
+            <ion-select item-right [(ngModel)]="driver_rating">
+              <ion-option value="1">1 - OH GOD NO</ion-option>
+              <ion-option value="2">2</ion-option>
+              <ion-option value="3">3</ion-option>
+              <ion-option value="4">4</ion-option>
+              <ion-option value="5">5 - 254 Level</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label>Defense Rating</ion-label>
+            <ion-select item-right [(ngModel)]="driver_defense_rating">
+              <ion-option value="1">1 - Nope</ion-option>
+              <ion-option value="2">2</ion-option>
+              <ion-option value="3">3</ion-option>
+              <ion-option value="4">4</ion-option>
+              <ion-option value="5">5 - The Anti-Shooter</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item class="comments">
+            <ion-label>Additional Comments</ion-label>
+            <ion-textarea [(ngModel)]="comments" placeholder="Additional Info..." style="text-align: left;"></ion-textarea>
+          </ion-item>
+          <ion-item>
+            <button ion-button full (click)="submitForm()">
+              Submit
+            </button>
+          </ion-item>
+        </ion-list>
+      </div>
+
     </div>
 
     <div *ngSwitchCase="'exporting'">
-      <h1>Exporting form!</h1>
+      <ion-lis>
+        <ion-item></ion-item>
+      </ion-lis>
     </div>
   </div>
 </ion-content>
