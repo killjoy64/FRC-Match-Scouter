@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {File, FileEntry, Metadata} from 'ionic-native';
+import {File, FileEntry, Metadata, Entry} from 'ionic-native';
 import {AlertController, ToastController, Platform} from 'ionic-angular';
 
 declare var cordova: any;
@@ -246,6 +246,48 @@ export class HomePage {
     });
   }
 
+  openForm(entry: Entry) {
+    this.readFile(entry).then((data: string) => {
+      let scouting_form = JSON.parse(data);
+      
+      console.log(scouting_form);
+      
+      this.scouter_name = scouting_form.general.name;
+
+      this.team_number = scouting_form.general.team_number;
+      this.team_alliance = scouting_form.general.team_alliance == "red" ? false : true;
+      this.team_alliance_string = this.team_alliance ? "red" : "blue";
+      this.match_number = scouting_form.general.match_number;
+
+      this.auto_gear = scouting_form.autonomous.gear;
+      this.auto_baseline = scouting_form.autonomous.baseline;
+      this.auto_high_fuel = scouting_form.autonomous.high_fuel;
+      this.auto_low_fuel = scouting_form.autonomous.low_fuel;
+
+      this.tele_gears = scouting_form.teleop.gears;
+      this.tele_high_fuel = scouting_form.teleop.high_fuel;
+      this.tele_low_fuel = scouting_form.teleop.low_fuel;
+      this.tele_climb = scouting_form.teleop.climb;
+
+      this.driver_rating = scouting_form.driver_rating;
+      this.driver_defense_rating = scouting_form.driver_defense_rating;
+      this.comments = scouting_form.comments;
+
+      let toast = this.toastCtrl.create({
+        message: 'Successfully loaded scouting form ' + entry.name,
+        duration: 3000,
+        showCloseButton: true
+      });
+
+      toast.present().then(() => {
+        this.mode = "scouting";
+      });
+      
+    }).catch((err) => {
+      console.log("Error reading scouting form. " + err.message + " " + err.code);
+    });
+  }
+
   exportForm() {
 
     if (this.team_alliance) {
@@ -258,6 +300,7 @@ export class HomePage {
       general: {
         name: this.scouter_name,
         team_number: this.team_number,
+        team_alliance: this.team_alliance_string,
         match_number: this.match_number
       },
       autonomous: {
@@ -286,6 +329,26 @@ export class HomePage {
           this.getScoutingForms();
           resolve(entry.name);
         }, (err) => {
+          reject(err);
+        });
+      });
+    } else {
+      return new Promise((resolve, reject) => {
+        reject({
+          code: "APP_BROWSER_MODE_ON",
+          message: "Could not write file. Browser detected. Native features have been disabled."
+        });
+      });
+    }
+  }
+
+  readFile(entry: Entry) {
+    if (!this.IS_BROWSER) {
+      return new Promise((resolve, reject) => {
+        File.readAsText(this.fs, entry.name).then((data) => {
+          console.log("Successfully read text from " + entry.name);
+          resolve(data);
+        }).catch((err) => {
           reject(err);
         });
       });

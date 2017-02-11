@@ -158,7 +158,7 @@
             <div class="file-path" *ngIf="!file.size">Size: </div>
             <div class="file-path" *ngIf="file.modificationTime">Last Modified: {{ file.modificationTime.getMonth() + 1 }}/{{ file.modificationTime.getDate() }}/{{ file.modificationTime.getFullYear() }} - {{ file.modificationTime.toLocaleTimeString() }}</div>
             <div class="file-path" *ngIf="file.size">Size: {{ file.size }} B</div>
-            <button ion-button clear item-right class="open">Open</button>
+            <button ion-button clear item-right class="open" (click)="openForm(file)">Open</button>
           </ion-item>
         </ion-list>
       </div>
