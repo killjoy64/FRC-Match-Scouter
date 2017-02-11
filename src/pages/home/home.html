@@ -150,9 +150,18 @@
     </div>
 
     <div *ngSwitchCase="'exporting'">
-      <ion-lis>
-        <ion-item></ion-item>
-      </ion-lis>
+      <div *ngIf="scouting_files">
+        <ion-list>
+          <ion-item *ngFor="let file of scouting_files" text-wrap>
+            <div class="file-name">{{ file.name }}</div>
+            <div class="file-path" *ngIf="!file.modificationTime">Last Modified:</div>
+            <div class="file-path" *ngIf="!file.size">Size: </div>
+            <div class="file-path" *ngIf="file.modificationTime">Last Modified: {{ file.modificationTime.getMonth() + 1 }}/{{ file.modificationTime.getDate() }}/{{ file.modificationTime.getFullYear() }} - {{ file.modificationTime.toLocaleTimeString() }}</div>
+            <div class="file-path" *ngIf="file.size">Size: {{ file.size }} B</div>
+            <button ion-button clear item-right class="open">Open</button>
+          </ion-item>
+        </ion-list>
+      </div>
     </div>
   </div>
 </ion-content>
